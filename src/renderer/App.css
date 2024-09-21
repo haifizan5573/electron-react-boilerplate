@@ -14,9 +14,9 @@ body {
   );
   font-family: sans-serif;
   overflow-y: hidden;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 button {
@@ -59,4 +59,23 @@ a:hover {
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+}
+
+
+/* FTPFolder.css */
+.ftp-file-list {
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  border: 1px solid #ddd; /* Optional styling */
+  padding: 10px;
+  list-style-type: none;
+}
+
+.ftp-file-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee; /* Optional item divider */
+}
+
+.ftp-file-list li:last-child {
+  border-bottom: none; /* Remove divider from the last item */
 }

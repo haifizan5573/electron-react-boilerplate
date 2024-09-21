@@ -1,50 +1,56 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
+import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import FTPFolder from './ftp';
+import FileUpload from './fileupload';
 
-function Hello() {
+// App Layout Component
+function AppLayout() {
   return (
-    <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
+    <div className="container-fluid">
+      <div className="row">
+        {/* Left Menu with fixed positioning and no padding */}
+        <nav
+          className="col-md-2 d-none d-md-block bg-light sidebar p-0"
+          style={{ position: 'fixed', top: 0, bottom: 0 }}
         >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
+          <div className="sidebar-sticky">
+            <ul className="list-group">
+              <li className="list-group-item">
+                <Link className="nav-link" to="/ftp">
+                  FTP Folder
+                </Link>
+              </li>
+              <li className="list-group-item">
+                {' '}
+                <Link className="nav-link" to="/upload">
+                  Upload File
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        {/* Right Content (offset to leave space for the sidebar) */}
+        <main
+          role="main"
+          className="col-md-9 ml-sm-auto col-lg-10 offset-md-2 px-md-4"
         >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
+          <Routes>
+            <Route path="/ftp" element={<FTPFolder />} />
+            <Route path="/upload" element={<FileUpload />} />
+          </Routes>
+        </main>
       </div>
     </div>
   );
 }
 
+// Main App Component
 export default function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
+      <AppLayout />
     </Router>
   );
 }
