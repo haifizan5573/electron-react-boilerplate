@@ -8,7 +8,7 @@ export default function FileList() {
   const apiUrl =
     process.env.NODE_ENV === 'development'
       ? 'http://fcatsdashboard.test'
-      : 'https://www.fcats.com.my';
+      : 'https://www.fcats.com.my/storage';
 
   // Fetch the list of files from the API
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function FileList() {
   // Return JSX with loading, error, and file list handling
   return (
     <div className="mt-2">
-      <h2>File List</h2>
+      <h2>File List {apiUrl}</h2>
       {loading && <p>Loading files...</p>} {/* Display while loading */}
       {errorList && <p>Error: {errorList}</p>} {/* Display error message */}
       <div className="file-list-container">
