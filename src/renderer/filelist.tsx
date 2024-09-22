@@ -8,6 +8,11 @@ export default function FileList() {
   const apiUrl =
     process.env.NODE_ENV === 'development'
       ? 'http://fcatsdashboard.test'
+      : 'https://www.fcats.com.my';
+
+  const linkUrl =
+    process.env.NODE_ENV === 'development'
+      ? 'http://fcatsdashboard.test'
       : 'https://www.fcats.com.my/storage';
 
   // Fetch the list of files from the API
@@ -57,7 +62,7 @@ export default function FileList() {
             {files.map((file, index) => (
               <li key={index}>
                 <a
-                  href={`${apiUrl}/txt/${file}`}
+                  href={`${linkUrl}/txt/${file}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
