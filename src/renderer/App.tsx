@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import FTPFolder from './ftp';
 import FileUpload from './fileupload';
+import FileList from './filelist';
 
 // App Layout Component
 function AppLayout() {
@@ -17,14 +18,19 @@ function AppLayout() {
           <div className="sidebar-sticky">
             <ul className="list-group">
               <li className="list-group-item">
-                <Link className="nav-link" to="/ftp">
-                  FTP Folder
+                <Link className="nav-link" to="/filelist">
+                  File Converted List
                 </Link>
               </li>
               <li className="list-group-item">
                 {' '}
                 <Link className="nav-link" to="/upload">
                   Upload File
+                </Link>
+              </li>
+              <li className="list-group-item">
+                <Link className="nav-link" to="/ftp">
+                  FTP Folder
                 </Link>
               </li>
             </ul>
@@ -37,8 +43,9 @@ function AppLayout() {
           className="col-md-9 ml-sm-auto col-lg-10 offset-md-2 px-md-4"
         >
           <Routes>
-            <Route path="/ftp" element={<FTPFolder />} />
+            <Route path="/filelist" element={<FileList />} />
             <Route path="/upload" element={<FileUpload />} />
+            <Route path="/ftp" element={<FTPFolder />} />
           </Routes>
         </main>
       </div>

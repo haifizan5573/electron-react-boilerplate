@@ -9,7 +9,14 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  session,
+  OnHeadersReceivedListenerDetails,
+} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -111,6 +118,32 @@ const createWindow = async () => {
   // eslint-disable-next-line
   new AppUpdater();
 };
+
+/**
+ * Add CORS handling...
+ */
+app.on('ready', () => {
+  // Intercept and modify headers to solve CORS issues
+  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+    details.requestHeaders.Origin = 'http://localhost:1212'; // Set your Electron app's origin
+    callback({ requestHeaders: details.requestHeaders });
+  });
+
+  app.on('ready', () => {
+    session.defaultSession.webRequest.onHeadersReceived(
+      (details: OnHeadersReceivedListenerDetails, callback) => {
+        details.responseHeaders!['Access-Control-Allow-Origin'] = [
+          'http://localhost:1212',
+        ];
+        details.responseHeaders!['Access-Control-Allow-Headers'] = [
+          'Content-Type',
+          'Authorization',
+        ];
+        callback({ responseHeaders: details.responseHeaders });
+      },
+    );
+  });
+});
 
 /**
  * Add event listeners...
